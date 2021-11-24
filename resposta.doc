@@ -1,0 +1,234 @@
+-- Quantas equipes únicas mandantes existem?
+
+SELECT 
+    COUNT(*) 
+FROM (
+    SELECT 
+        DISTINCT(t.id) 
+    FROM times t
+    INNER JOIN consumption_resultado_partidas crp ON crp.time_casa_id = t.id
+) foo
+
+
+-- Quantas vezes as equipes mandantes saíram vitoriosas?
+
+-- Por ano
+SELECT 
+    ano, 
+    COUNT(*) vitorias_em_casa 
+FROM consumption_resultado_partidas
+WHERE resultado = 'Casa'
+GROUP BY ano
+
+-- Total
+
+SELECT 
+    SUM(vitorias_em_casa) 
+FROM (
+    SELECT 
+        ano, 
+        COUNT(*) vitorias_em_casa 
+    FROM consumption_resultado_partidas
+    WHERE resultado = 'Casa'
+    GROUP BY ano
+) foo
+
+-- Quantas vezes as equipes visitantes saíram vitoriosas?
+
+-- Por ano
+SELECT 
+    ano, 
+    COUNT(*) vitorias_visitante
+FROM consumption_resultado_partidas
+WHERE resultado = 'Visitante'
+GROUP BY ano
+-- Total
+
+SELECT 
+    SUM(vitorias_visitante) 
+FROM (
+    SELECT 
+        ano, 
+        COUNT(*) vitorias_visitante 
+    FROM consumption_resultado_partidas
+    WHERE resultado = 'Visitante'
+    GROUP BY ano
+) foo 
+
+-- Quantas partidas resultaram em empate?
+
+-- Por ano
+SELECT 
+    ano, 
+    COUNT(*) empates 
+FROM consumption_resultado_partidas
+WHERE resultado = 'Empate'
+GROUP BY ano
+
+-- Total
+
+SELECT 
+    SUM(empates) 
+FROM (
+    SELECT 
+        ano, 
+        COUNT(*) empates 
+    FROM consumption_resultado_partidas
+    WHERE resultado = 'Empate'
+    GROUP BY ano
+) foo 
+
+-- Quais jogadores detêm os melhores scouts gerais e por ano?
+
+
+  (SELECT nome,
+          (SUM(pontos)/COUNT(rodada_id)) media,
+          ano
+   FROM consumption_rodadas
+   WHERE ano = 2014
+   GROUP BY nome,
+            ano
+   ORDER BY media DESC
+   LIMIT 1)
+UNION
+  (SELECT nome,
+          (SUM(pontos)/COUNT(rodada_id)) media,
+          ano
+   FROM consumption_rodadas
+   WHERE ano = 2015
+   GROUP BY nome,
+            ano
+   ORDER BY media DESC
+   LIMIT 1)
+UNION
+  (SELECT nome,
+          (SUM(pontos)/COUNT(rodada_id)) media,
+          ano
+   FROM consumption_rodadas
+   WHERE ano = 2016
+   GROUP BY nome,
+            ano
+   ORDER BY media DESC
+   LIMIT 1)
+UNION
+  (SELECT nome,
+          (SUM(pontos)/COUNT(rodada_id)) media,
+          ano
+   FROM consumption_rodadas
+   WHERE ano = 2017
+   GROUP BY nome,
+            ano
+   ORDER BY media DESC
+   LIMIT 1)
+UNION
+  (SELECT nome,
+          (SUM(pontos)/COUNT(rodada_id)) media,
+          ano
+   FROM consumption_rodadas
+   WHERE ano = 2018
+   GROUP BY nome,
+            ano
+   ORDER BY media DESC
+   LIMIT 1)
+UNION
+  (SELECT nome,
+          (SUM(pontos)/COUNT(rodada_id)) media,
+          ano
+   FROM consumption_rodadas
+   WHERE ano = 2019
+   GROUP BY nome,
+            ano
+   ORDER BY media DESC
+   LIMIT 1)
+UNION
+  (SELECT nome,
+          (SUM(pontos)/COUNT(rodada_id)) media,
+          ano
+   FROM consumption_rodadas
+   WHERE ano = 2020
+   GROUP BY nome,
+            ano
+   ORDER BY media DESC
+   LIMIT 1)
+ORDER BY ano ASC
+
+-- Qual é o time ideal?
+
+  (SELECT nome,
+          (SUM(pontos)/COUNT(rodada_id)) media,
+          p.posicao,
+          p.codigo
+   FROM consumption_rodadas cr
+   INNER JOIN posicoes p ON p.codigo = cr.posicao_id
+   WHERE posicao_id = 1
+   GROUP BY nome,
+            posicao,
+            codigo
+   ORDER BY media DESC
+   LIMIT 1)
+UNION
+  (SELECT nome,
+          (SUM(pontos)/COUNT(rodada_id)) media,
+          p.posicao,
+          p.codigo
+   FROM consumption_rodadas cr
+   INNER JOIN posicoes p ON p.codigo = cr.posicao_id
+   WHERE posicao_id = 2
+   GROUP BY nome,
+            posicao,
+            codigo
+   ORDER BY media DESC
+   LIMIT 2)
+UNION
+  (SELECT nome,
+          (SUM(pontos)/COUNT(rodada_id)) media,
+          p.posicao,
+          p.codigo
+   FROM consumption_rodadas cr
+   INNER JOIN posicoes p ON p.codigo = cr.posicao_id
+   WHERE posicao_id = 3
+   GROUP BY nome,
+            posicao,
+            codigo
+   ORDER BY media DESC
+   LIMIT 2)
+UNION
+  (SELECT nome,
+          (SUM(pontos)/COUNT(rodada_id)) media,
+          p.posicao,
+          p.codigo
+   FROM consumption_rodadas cr
+   INNER JOIN posicoes p ON p.codigo = cr.posicao_id
+   WHERE posicao_id = 4
+   GROUP BY nome,
+            posicao,
+            codigo
+   ORDER BY media DESC
+   LIMIT 3)
+UNION
+  (SELECT nome,
+          (SUM(pontos)/COUNT(rodada_id)) media,
+          p.posicao,
+          p.codigo
+   FROM consumption_rodadas cr
+   INNER JOIN posicoes p ON p.codigo = cr.posicao_id
+   WHERE posicao_id = 5
+   GROUP BY nome,
+            posicao,
+            codigo
+   ORDER BY media DESC
+   LIMIT 3)
+UNION
+  (SELECT nome,
+          (SUM(pontos)/COUNT(rodada_id)) media,
+          p.posicao,
+          p.codigo
+   FROM consumption_rodadas cr
+   INNER JOIN posicoes p ON p.codigo = cr.posicao_id
+   WHERE posicao_id = 6
+   GROUP BY nome,
+            posicao,
+            codigo
+   ORDER BY media DESC
+   LIMIT 1)
+ORDER BY codigo ASC
