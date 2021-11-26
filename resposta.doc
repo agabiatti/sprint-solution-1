@@ -1,5 +1,7 @@
 -- Quantas equipes únicas mandantes existem?
 
+Resposta: 24
+
 SELECT 
     COUNT(*) 
 FROM (
@@ -13,6 +15,13 @@ FROM (
 -- Quantas vezes as equipes mandantes saíram vitoriosas?
 
 -- Por ano
+
+Resposta:
+
+2014  --  197
+2015  --  194
+2016  --  202
+
 SELECT 
     ano, 
     COUNT(*) vitorias_em_casa 
@@ -21,6 +30,8 @@ WHERE resultado = 'Casa'
 GROUP BY ano
 
 -- Total
+
+Resposta: 593
 
 SELECT 
     SUM(vitorias_em_casa) 
@@ -36,13 +47,23 @@ FROM (
 -- Quantas vezes as equipes visitantes saíram vitoriosas?
 
 -- Por ano
+
+Resposta:
+
+2014  --  91
+2015  --  80
+2016  --  83
+
 SELECT 
     ano, 
     COUNT(*) vitorias_visitante
 FROM consumption.resultado_partidas
 WHERE resultado = 'Visitante'
 GROUP BY ano
+
 -- Total
+
+Resposta: 254
 
 SELECT 
     SUM(vitorias_visitante) 
@@ -58,6 +79,13 @@ FROM (
 -- Quantas partidas resultaram em empate?
 
 -- Por ano
+
+Resposta:
+
+2014  --  92
+2015  --  86
+2016  --  94
+
 SELECT 
     ano, 
     COUNT(*) empates 
@@ -66,6 +94,8 @@ WHERE resultado = 'Empate'
 GROUP BY ano
 
 -- Total
+
+Resposta: 272
 
 SELECT 
     SUM(empates) 
@@ -80,6 +110,15 @@ FROM (
 
 -- Quais jogadores detêm os melhores scouts gerais e por ano?
 
+Resposta:
+
+Conca	                    5.210256377473856	    2014
+Marcelo Lomba	            5.435135140612319	    2015
+Bruno Henrique	            5.633333287068775	    2016
+Nino Paraíba	            11.399999618530273	    2017
+Róger Krug Guedes	        10.62727266550064	    2018
+Gabriel Barbosa Almeida	    7.086842125967929	    2019
+Mário Sérgio Santos Costa   6.8837837915162785	    2020
 
   (SELECT nome,
           (SUM(pontos)/COUNT(rodada_id)) media,
@@ -153,6 +192,21 @@ UNION
 ORDER BY ano ASC
 
 -- Qual é o time ideal?
+
+Resposta:
+
+Tadeu Antonio Ferreira	                6.147368449913828	    Goleiro	
+Ramon dos Santos Pereira	            5.733333349227905	    Lateral	
+João Lucas	                            5.699999809265137	    Lateral	
+Leonardo Renan Sim<f5>es de Lacerda	    5.099999904632568	    Zagueiro	
+Fabián Cornelio Balbuena González	    4.445454494519667	    Zagueiro	
+Tomas Bastos	                        8.949999809265137	    Meia	
+Matheus Sávio	                        6.050000190734863	    Meia	
+Anselmo de Moraes	                    8.133333418104383	    Meia	
+Róger Krug Guedes	                    10.62727266550064	    Atacante	
+Clayson	                                8.550000190734863	    Atacante	
+Borja	                                8.050000190734863	    Atacante	
+Fábio Moreno	                        6.480000019073486	    Técnico	
 
   (SELECT nome,
           (SUM(pontos)/COUNT(rodada_id)) media,
@@ -232,3 +286,9 @@ UNION
    ORDER BY media DESC
    LIMIT 1)
 ORDER BY codigo ASC
+
+
+Será que podemos preparar a ingestão para o campeonato de 2021?
+Como capturar os dados direto do Cartola FC?
+
+Resposta: Sim. Pode ser preparado a ingestão dos dados do ano de 2021 utilizando a API. 
