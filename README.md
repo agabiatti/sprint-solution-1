@@ -5,7 +5,8 @@ Pipeline para ingestão de dados
 
 ## Como executar
 
-Na home do projeto rode o comando
+É necessario ter instalado python 3 e o pip3.
+Na home do projeto rode os comandos
 
 ```bash
 docker-compose up -d

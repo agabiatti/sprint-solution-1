@@ -2,7 +2,7 @@ import requests
 import os
 
 siteUrl = "https://api.cartolafc.globo.com/"
-siteFolder = "../cartola/2021/"
+siteFolder = "./cartola/2021/"
 endpoints = [
 	{'url': 'clubes', 'name_file': 'clubes'},
 	{'url': 'ligas', 'name_file': 'ligas'},

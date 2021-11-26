@@ -3,8 +3,8 @@
 echo "Start Pipeline"
 
 echo "Get 2021 data"
-pip install -r api/requirements.txt
-python api/main.py
+pip3 install -r api/requirements.txt
+python3 api/main.py
 
 echo "Clear Data"
 docker exec -it jupyter-spark hdfs dfs -rm -r /raw_data

@@ -5,8 +5,8 @@ SELECT
 FROM (
     SELECT 
         DISTINCT(t.id) 
-    FROM times t
-    INNER JOIN consumption_resultado_partidas crp ON crp.time_casa_id = t.id
+    FROM ingestion.times t
+    INNER JOIN consumption.resultado_partidas crp ON crp.time_casa_id = t.id
 ) foo
 
 
@@ -16,7 +16,7 @@ FROM (
 SELECT 
     ano, 
     COUNT(*) vitorias_em_casa 
-FROM consumption_resultado_partidas
+FROM consumption.resultado_partidas
 WHERE resultado = 'Casa'
 GROUP BY ano
 
@@ -28,7 +28,7 @@ FROM (
     SELECT 
         ano, 
         COUNT(*) vitorias_em_casa 
-    FROM consumption_resultado_partidas
+    FROM consumption.resultado_partidas
     WHERE resultado = 'Casa'
     GROUP BY ano
 ) foo
@@ -39,7 +39,7 @@ FROM (
 SELECT 
     ano, 
     COUNT(*) vitorias_visitante
-FROM consumption_resultado_partidas
+FROM consumption.resultado_partidas
 WHERE resultado = 'Visitante'
 GROUP BY ano
 -- Total
@@ -50,7 +50,7 @@ FROM (
     SELECT 
         ano, 
         COUNT(*) vitorias_visitante 
-    FROM consumption_resultado_partidas
+    FROM consumption.resultado_partidas
     WHERE resultado = 'Visitante'
     GROUP BY ano
 ) foo 
@@ -61,7 +61,7 @@ FROM (
 SELECT 
     ano, 
     COUNT(*) empates 
-FROM consumption_resultado_partidas
+FROM consumption.resultado_partidas
 WHERE resultado = 'Empate'
 GROUP BY ano
 
@@ -73,7 +73,7 @@ FROM (
     SELECT 
         ano, 
         COUNT(*) empates 
-    FROM consumption_resultado_partidas
+    FROM consumption.resultado_partidas
     WHERE resultado = 'Empate'
     GROUP BY ano
 ) foo 
@@ -84,7 +84,7 @@ FROM (
   (SELECT nome,
           (SUM(pontos)/COUNT(rodada_id)) media,
           ano
-   FROM consumption_rodadas
+   FROM consumption.rodadas
    WHERE ano = 2014
    GROUP BY nome,
             ano
@@ -94,7 +94,7 @@ UNION
   (SELECT nome,
           (SUM(pontos)/COUNT(rodada_id)) media,
           ano
-   FROM consumption_rodadas
+   FROM consumption.rodadas
    WHERE ano = 2015
    GROUP BY nome,
             ano
@@ -104,7 +104,7 @@ UNION
   (SELECT nome,
           (SUM(pontos)/COUNT(rodada_id)) media,
           ano
-   FROM consumption_rodadas
+   FROM consumption.rodadas
    WHERE ano = 2016
    GROUP BY nome,
             ano
@@ -114,7 +114,7 @@ UNION
   (SELECT nome,
           (SUM(pontos)/COUNT(rodada_id)) media,
           ano
-   FROM consumption_rodadas
+   FROM consumption.rodadas
    WHERE ano = 2017
    GROUP BY nome,
             ano
@@ -124,7 +124,7 @@ UNION
   (SELECT nome,
           (SUM(pontos)/COUNT(rodada_id)) media,
           ano
-   FROM consumption_rodadas
+   FROM consumption.rodadas
    WHERE ano = 2018
    GROUP BY nome,
             ano
@@ -134,7 +134,7 @@ UNION
   (SELECT nome,
           (SUM(pontos)/COUNT(rodada_id)) media,
           ano
-   FROM consumption_rodadas
+   FROM consumption.rodadas
    WHERE ano = 2019
    GROUP BY nome,
             ano
@@ -144,7 +144,7 @@ UNION
   (SELECT nome,
           (SUM(pontos)/COUNT(rodada_id)) media,
           ano
-   FROM consumption_rodadas
+   FROM consumption.rodadas
    WHERE ano = 2020
    GROUP BY nome,
             ano
@@ -158,8 +158,8 @@ ORDER BY ano ASC
           (SUM(pontos)/COUNT(rodada_id)) media,
           p.posicao,
           p.codigo
-   FROM consumption_rodadas cr
-   INNER JOIN posicoes p ON p.codigo = cr.posicao_id
+   FROM consumption.rodadas cr
+   INNER JOIN ingestion.posicoes p ON p.codigo = cr.posicao_id
    WHERE posicao_id = 1
    GROUP BY nome,
             posicao,
@@ -171,8 +171,8 @@ UNION
           (SUM(pontos)/COUNT(rodada_id)) media,
           p.posicao,
           p.codigo
-   FROM consumption_rodadas cr
-   INNER JOIN posicoes p ON p.codigo = cr.posicao_id
+   FROM consumption.rodadas cr
+   INNER JOIN ingestion.posicoes p ON p.codigo = cr.posicao_id
    WHERE posicao_id = 2
    GROUP BY nome,
             posicao,
@@ -184,8 +184,8 @@ UNION
           (SUM(pontos)/COUNT(rodada_id)) media,
           p.posicao,
           p.codigo
-   FROM consumption_rodadas cr
-   INNER JOIN posicoes p ON p.codigo = cr.posicao_id
+   FROM consumption.rodadas cr
+   INNER JOIN ingestion.posicoes p ON p.codigo = cr.posicao_id
    WHERE posicao_id = 3
    GROUP BY nome,
             posicao,
@@ -197,8 +197,8 @@ UNION
           (SUM(pontos)/COUNT(rodada_id)) media,
           p.posicao,
           p.codigo
-   FROM consumption_rodadas cr
-   INNER JOIN posicoes p ON p.codigo = cr.posicao_id
+   FROM consumption.rodadas cr
+   INNER JOIN ingestion.posicoes p ON p.codigo = cr.posicao_id
    WHERE posicao_id = 4
    GROUP BY nome,
             posicao,
@@ -210,8 +210,8 @@ UNION
           (SUM(pontos)/COUNT(rodada_id)) media,
           p.posicao,
           p.codigo
-   FROM consumption_rodadas cr
-   INNER JOIN posicoes p ON p.codigo = cr.posicao_id
+   FROM consumption.rodadas cr
+   INNER JOIN ingestion.posicoes p ON p.codigo = cr.posicao_id
    WHERE posicao_id = 5
    GROUP BY nome,
             posicao,
@@ -223,8 +223,8 @@ UNION
           (SUM(pontos)/COUNT(rodada_id)) media,
           p.posicao,
           p.codigo
-   FROM consumption_rodadas cr
-   INNER JOIN posicoes p ON p.codigo = cr.posicao_id
+   FROM consumption.rodadas cr
+   INNER JOIN ingestion.posicoes p ON p.codigo = cr.posicao_id
    WHERE posicao_id = 6
    GROUP BY nome,
             posicao,
